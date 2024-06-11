@@ -1,4 +1,5 @@
 using kolokwium2.Data;
+using kolokwium2.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<dbContext>(options => options.UseSqlServer("Name=ConnectionStrings:Default"));
+builder.Services.AddScoped<IdbService, dbService>();
 
 var app = builder.Build();
 
@@ -19,7 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection();  
 
 app.MapControllers();
 
